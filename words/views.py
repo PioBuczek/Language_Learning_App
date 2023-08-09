@@ -16,7 +16,16 @@ class AddWordView(View):
 
     def get(self, request):
         message = "Input another word and translation"
-        return render(request, self.template, {"message": message})
+        words_for_edit = Word.objects.all()
+
+        if words_for_edit.exists():
+            first_word = words_for_edit.first()
+        else:
+            first_word = None
+
+        return render(
+            request, self.template, {"message": message, "first_word": first_word}
+        )
 
     def post(self, request):
         word = request.POST.get("word")
