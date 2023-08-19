@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>
+        Edit Existing Words
+    </h1>
+    {% if words %}
+    <ul>
+        {% for word in words %}
+        <li>
+            {{word.word}} - {{word.translation}}
+            <a href="{url 'edit_word' word.id %}">Edit</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No words to edit.</p>
+    {% endif %}
+    <a href="{% url 'add_word' %}">Main Page</a>
+</body>
+
+
+
+</html>

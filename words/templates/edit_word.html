@@ -18,9 +18,7 @@
     </form>
 
     {% if words_to_edit %}
-    <a href="{%url 'edit_word' words_to_edit.id %}">Edit Words</a>
-    {% else %}
-    <p> There are no words to edit.</p>
+    <a href="{% url 'edit_word' word.id %}">Edit</a>
     {% endif %}
 
 

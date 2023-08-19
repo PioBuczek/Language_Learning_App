@@ -9,9 +9,19 @@
     <h1> Word List </h1>
     <ul>
         {% for word in words %}
-        <li>{{word.word}} - {{word.translation}}</li>
+        <li>
+            {{word.word}} - {{word.translation}}
+            <a href="{% url 'edit_word' word.id %}">Edit</a>
+            <form action="{% url 'delete_word' word.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+
+        </li>
         {% endfor %}
     </ul>
+    <a href="{% url 'add_word' %}">Main Page</a>
+
 </body>
 
 </html>
