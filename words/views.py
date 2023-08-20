@@ -7,7 +7,12 @@ class WordListView(View):
     template = "word_list.html"
 
     def get(self, request):
+        sort_by = request.GET.get("sort")
         words = Word.objects.all()
+
+        if sort_by == "word":
+            words = words.order_by("word")
+
         return render(request, self.template, {"words": words})
 
 
@@ -53,4 +58,4 @@ class DeleteWord(View):
     def post(self, request, word_id):
         word = Word.objects.get(id=word_id)
         word.delete()
-        return redirect("word_list").
+        return redirect("word_list")
