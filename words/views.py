@@ -53,4 +53,4 @@ class DeleteWord(View):
     def post(self, request, word_id):
         word = Word.objects.get(id=word_id)
         word.delete()
-        return redirect("word_list")
+        return redirect("word_list").
