@@ -7,14 +7,24 @@
 
 <body>
     <h1> Word List </h1>
+    <div class="sorting-buttons">
+        <form action="{% url 'word_list' %}?sort=word" method="get">
+            <input type="hidden" name="sort" value="word">
+            <button type="submit" class="sort-by-word">Sort by Word</button>
+        </form>
+
+    </div>
     <ul>
         {% for word in words %}
         <li class="word-entry">
             <div class="word-number">{{ forloop.counter }}.</div>
             <div>{{ word.word }} - {{ word.translation }}</div>
             <div class="actions">
-                <a href="{% url 'edit_word' word.id %}" class="edit-button">Edit</a>
-                <form action="{% url 'delete_word' word.id %}" method="post">
+                <form action="{% url 'edit_word' word.id %}" class="post">
+                    {% csrf_token %}
+                    <button type="submit" class="edit-button">Edit</button>
+                </form>
+                <form action="{% url 'delete_word' word.id %}" class="post">
                     {% csrf_token %}
                     <button type="submit" class="delete-button">Delete</button>
                 </form>
