@@ -5,6 +5,7 @@ from words.views import (
     EditWordView,
     EditWordListView,
     DeleteWord,
+    AddGroupView,
 )
 from django.urls import path
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path("edit_word/<int:word_id>/", EditWordView.as_view(), name="edit_word"),
     path("edit_word_list/", EditWordListView.as_view(), name="edit_word_list"),
     path("delete_word/<int:word_id>", DeleteWord.as_view(), name="delete_word"),
+    path("add_group/", AddGroupView.as_view(), name="add_group"),
 ]

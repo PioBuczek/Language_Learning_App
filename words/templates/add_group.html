@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Group</title>
+</head>
+
+<body>
+    <h1>Add Group</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="group_name">Group Name:</label>
+        <input type="text" name="group_name" required><br>
+        <button type="submit"> Save Group</button>
+    </form>
+
+    {% if group_added %}
+    <p>Group added successfully</p>
+    {% endif %}
+
+    <form action="{% url 'add_word' %}" method="get">
+        <input type="submit" value="Main Page">
+    </form>
+</body>
+
+</html>

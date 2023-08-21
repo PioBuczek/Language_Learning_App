@@ -19,12 +19,13 @@
         <li class="word-entry">
             <div class="word-number">{{ forloop.counter }}.</div>
             <div>{{ word.word }} - {{ word.translation }}</div>
+            <div>Group: {{ word.group.name }}</div>
             <div class="actions">
                 <form action="{% url 'edit_word' word.id %}" class="post">
                     {% csrf_token %}
                     <button type="submit" class="edit-button">Edit</button>
                 </form>
-                <form action="{% url 'delete_word' word.id %}" class="post">
+                <form action="{% url 'delete_word' word.id %}" method="post" class="post">
                     {% csrf_token %}
                     <button type="submit" class="delete-button">Delete</button>
                 </form>

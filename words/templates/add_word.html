@@ -13,11 +13,22 @@
         <input type="text" name="word" required><br>
         <label for="translation">Translation:</label>
         <input type="text" name="translation" required><br>
+        <label for="group">Group:</label>
+        <select name="group">
+            <option value="" selected>None</option>
+            {% for group in groups %}
+            <option value="{{ group.id }}">{{ group.name }}</option>
+            {% endfor %}
+        </select><br>
         <input type="submit" value="Add Word">
     </form>
 
     <form action="{% url 'word_list' %}" method="get">
         <input type="submit" value="List words">
+    </form>
+
+    <form action="{% url 'add_group' %}" method="get">
+        <input type="submit" value="Add New Group">
     </form>
 
 </body>

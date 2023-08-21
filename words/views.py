@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Word
+from .models import Word, WordGroup
 from django.views import View
 
 
@@ -20,13 +20,22 @@ class AddWordView(View):
     template = "add_word.html"
 
     def get(self, request):
-        return render(request, self.template)
+        groups = WordGroup.objects.all()
+        return render(request, self.template, {"groups": groups})
 
     def post(self, request):
         word = request.POST.get("word")
         translation = request.POST.get("translation")
-        Word.objects.create(word=word, translation=translation)
-        return render(request, self.template)
+        group_id = request.POST.get("group")
+
+        if group_id:
+            group = WordGroup.objects.get(id=group_id)
+            Word.objects.create(word=word, translation=translation, group=group)
+        else:
+            Word.objects.create(word=word, translation=translation)
+
+        groups = WordGroup.objects.all()
+        return render(request, self.template, {"groups": groups, "word_added": True})
 
 
 class EditWordView(View):
@@ -59,3 +68,15 @@ class DeleteWord(View):
         word = Word.objects.get(id=word_id)
         word.delete()
         return redirect("word_list")
+
+
+class AddGroupView(View):
+    template = "add_group.html"
+
+    def get(self, request):
+        return render(request, self.template)
+
+    def post(self, request):
+        group_name = request.POST.get("group_name")
+        WordGroup.objects.create(name=group_name)
+        return render(request, self.template, {"group_added": True})
