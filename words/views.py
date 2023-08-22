@@ -8,12 +8,19 @@ class WordListView(View):
 
     def get(self, request):
         sort_by = request.GET.get("sort")
+        category_id = request.GET.get("category")
+
         words = Word.objects.all()
 
         if sort_by == "word":
             words = words.order_by("word")
 
-        return render(request, self.template, {"words": words})
+        if category_id:
+            words = words.filter(group_id=category_id)
+
+        groups = WordGroup.objects.all()
+
+        return render(request, self.template, {"words": words, "groups": groups})
 
 
 class AddWordView(View):

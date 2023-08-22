@@ -12,8 +12,22 @@
             <input type="hidden" name="sort" value="word">
             <button type="submit" class="sort-by-word">Sort by Word</button>
         </form>
-
     </div>
+
+
+    <div class="filter-by-category">
+        <form action="{% url 'word_list' %}" method="get">
+            <label for="category">Filter by Category:</label>
+            <select name="category" id="category">
+                <option value="" selected>All</option>
+                {% for group in groups %}
+                <option value="{{ group.id }}">{{group.name}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Apply Filter</button>
+        </form>
+    </div>
+
     <ul>
         {% for word in words %}
         <li class="word-entry">
