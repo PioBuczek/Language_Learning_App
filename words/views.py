@@ -87,3 +87,44 @@ class AddGroupView(View):
         group_name = request.POST.get("group_name")
         WordGroup.objects.create(name=group_name)
         return render(request, self.template, {"group_added": True})
+
+
+class QuizView(View):
+    template = "quiz.html"
+
+    def get(self, request):
+        groups = WordGroup.objects.all()
+        group_selected = None
+        return render(
+            request, self.template, {"groups": groups, "group_selected": group_selected}
+        )
+
+    def post(self, request):
+        group_id = request.POST.get("group")
+        group_selected = None
+        if group_id:
+            group_selected = WordGroup.objects.get(id=group_id)
+            words_in_group = Word.objects.filter(group=group_selected)
+        else:
+            words_in_group = Word.objects.all()
+
+        total_words = words_in_group.count()
+        correct_answers = 0
+
+        for word in words_in_group:
+            user_translation = request.POST.get(f"word_{word.id}")
+            if (
+                user_translation
+                and user_translation.lower() == word.translation.lower()
+            ):
+                correct_answers += 1
+
+        return render(
+            request,
+            self.template,
+            {
+                "total_words": total_words,
+                "correct_answers": correct_answers,
+                "group_selected": group_selected,
+            },
+        )
