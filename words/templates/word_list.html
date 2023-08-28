@@ -28,6 +28,12 @@
         </form>
     </div>
 
+    <div class="quiz">
+        <form action="{% url 'quiz' %}" method="get">
+            <input type="submit" value="Quiz">
+        </form>
+    </div>
+
     <ul>
         {% for word in words %}
         <li class="word-entry">
@@ -48,6 +54,8 @@
         {% endfor %}
     </ul>
     <a href="{% url 'add_word' %}"><button type="submit">Main Page</button></a>
+
+
 </body>
 
 </html>
