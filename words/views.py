@@ -94,37 +94,84 @@ class QuizView(View):
 
     def get(self, request):
         groups = WordGroup.objects.all()
-        group_selected = None
-        return render(
-            request, self.template, {"groups": groups, "group_selected": group_selected}
-        )
+        return render(request, self.template, {"groups": groups})
+
+
+class QuizStartView(View):
+    template = "quiz_start.html"
 
     def post(self, request):
         group_id = request.POST.get("group")
-        group_selected = None
-        if group_id:
-            group_selected = WordGroup.objects.get(id=group_id)
-            words_in_group = Word.objects.filter(group=group_selected)
+        selected_group = WordGroup.objects.get(id=group_id)
+        words_in_group = Word.objects.filter(group=selected_group)
+
+        if words_in_group:
+            return render(
+                request,
+                self.template,
+                {
+                    "selected_group": selected_group,
+                    "words_in_group": words_in_group,
+                },
+            )
         else:
-            words_in_group = Word.objects.all()
+            return render(
+                request,
+                self.template,
+                {
+                    "selected_group": selected_group,
+                    "words_in_group": False,
+                },
+            )
 
-        total_words = words_in_group.count()
-        correct_answers = 0
 
-        for word in words_in_group:
-            user_translation = request.POST.get(f"word_{word.id}")
-            if (
-                user_translation
-                and user_translation.lower() == word.translation.lower()
-            ):
+class QuizCheckView(View):
+    template = "quiz_check.html"
+
+    def post(self, request):
+        group_id = int(request.POST.get("group"))
+        word_index = int(request.POST.get("word_index"))
+        user_translation = request.POST.get("user_translation")
+        correct_answers = int(request.POST.get("correct_answers"))
+
+        selected_group = WordGroup.objects.get(id=group_id)
+        words_in_group = Word.objects.filter(group=selected_group)
+
+        if word_index < len(words_in_group):
+            current_word = words_in_group[word_index]
+            correct_translation = current_word.translation.lower()
+
+            is_correct = user_translation.lower() == correct_translation
+            if is_correct:
                 correct_answers += 1
 
-        return render(
-            request,
-            self.template,
-            {
-                "total_words": total_words,
-                "correct_answers": correct_answers,
-                "group_selected": group_selected,
-            },
-        )
+            next_word_index = word_index + 1
+            next_word = (
+                words_in_group[next_word_index]
+                if next_word_index < len(words_in_group)
+                else None
+            )
+
+            return render(
+                request,
+                self.template,
+                {
+                    "is_correct": is_correct,
+                    "correct_translation": correct_translation,
+                    "group_id": group_id,
+                    "next_index": next_word_index,
+                    "updated_correct_answers": correct_answers,
+                    "next_word": next_word,
+                    "total_words": len(words_in_group),
+                },
+            )
+        else:
+            return render(
+                request,
+                self.template,
+                {
+                    "quiz_completed": True,
+                    "total_words": len(words_in_group),
+                    "correct_answers": correct_answers,
+                },
+            )
