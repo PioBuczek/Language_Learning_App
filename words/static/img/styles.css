@@ -1,5 +1,22 @@
-body {
-    background-image: url('Language_Learning_App\words\static\img\Learning_to_app.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+.shorter-table {
+    max-height: 100px;
+
+    overflow-y: scroll;
+
+}
+
+h3 {
+    text-align: center;
+    color: white;
+}
+
+h4 {
+    text-align: center;
+    color: rgb(240, 224, 9);
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: contain;
+    }
 }
