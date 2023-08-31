@@ -1,30 +1,26 @@
-<!DOCTYPE html>
-<html>
+{% extends 'main.html' %}
 
-<head>
-    <title>Quiz</title>
-</head>
+{% block tytul %} quiz_check {% endblock %}
 
-<body>
-    <h2>Quiz Check</h2>
-    {% if is_correct %}
-    <p>Correct answer!</p>
+{% block strona %}
+
+{% if is_correct %}
+<p>Correct answer!</p>
+{% else %}
+<p>Incorrect answer. Try again</p>
+{% endif %}
+<form method="post" action="{% url 'quiz_check' %}">
+    {% csrf_token %}
+    <input type="hidden" name="group" value="{{ group_id }}">
+    <input type="hidden" name="word_index" value="{{ next_index }}">
+    <input type="hidden" name="correct_answers" value="{{ updated_correct_answers }}">
+    {% if next_word %}
+    <p>Translate the word: <strong>{{ next_word.word }}</strong></p>
+    <input type="text" name="user_translation" required>
+    <button type="submit">Check Answer</button>
     {% else %}
-    <p>Incorrect answer. Try again</p>
+    <p>Quiz completed. You answered {{ updated_correct_answers }} out of {{ total_words }} words correctly.</p>
     {% endif %}
-    <form method="post" action="{% url 'quiz_check' %}">
-        {% csrf_token %}
-        <input type="hidden" name="group" value="{{ group_id }}">
-        <input type="hidden" name="word_index" value="{{ next_index }}">
-        <input type="hidden" name="correct_answers" value="{{ updated_correct_answers }}">
-        {% if next_word %}
-        <p>Translate the word: <strong>{{ next_word.word }}</strong></p>
-        <input type="text" name="user_translation" required>
-        <button type="submit">Check Answer</button>
-        {% else %}
-        <p>Quiz completed. You answered {{ updated_correct_answers }} out of {{ total_words }} words correctly.</p>
-        {% endif %}
-    </form>
-</body>
-
-</html>
+</form>
+<a href="{% url 'add_word' %}"><button type="submit">Main Page</button></a>
+{% endblock %}

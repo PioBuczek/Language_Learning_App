@@ -1,26 +1,21 @@
-<!DOCTYPE html>
-<html>
+{% extends 'main.html' %}
 
-<head>
-    <title>Edit Word</title>
-</head>
+{% block tytul %} Edit word {% endblock %}
 
-<body>
-    <h1>Edit Word</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="word"> Word:</label>
-        <input type="text" name="word" value="{{word.word}}" required><br>
-        <label for="translation"> Translation:</label>
-        <input type="text" , name="translation" value='{{word.translation}}' required><br>
-        <input type="submit" value="Save">
+{% block strona %}
 
-    </form>
+<form method="post">
+    {% csrf_token %}
+    <label for="word"> Word:</label>
+    <input type="text" name="word" value="{{word.word}}" required><br>
+    <label for="translation"> Translation:</label>
+    <input type="text" , name="translation" value='{{word.translation}}' required><br>
+    <input type="submit" value="Save">
 
-    {% if words_to_edit %}
-    <a href="{% url 'edit_word' word.id %}">Edit</a>
-    {% endif %}
+</form>
 
-</body>
+{% if words_to_edit %}
+<a href="{% url 'edit_word' word.id %}">Edit</a>
+{% endif %}
 
-</html>
+{% endblock %}

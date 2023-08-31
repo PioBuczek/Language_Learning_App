@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html>
+{% extends 'main.html' %}
 
-<head>
-    <title>Quiz</title>
-</head>
+{% block tytul %} Quiz start {% endblock %}
 
-<body>
-    <h2>Quiz Started</h2>
-    <form method="post" action="{% url 'quiz_check' %}">
-        {% csrf_token %}
-        <input type="hidden" name="group" value="{{ selected_group.id }}">
-        <input type="hidden" name="word_index" value="0">
-        <input type="hidden" name="correct_answers" value="0">
-        {% if words_in_group %}
-        <p>Translate the word: <strong>{{ words_in_group.0.word }}</strong></p>
-        <input type="text" name="user_translation" required>
-        <button type="submit">Check Answer</button>
-        {% else %}
-        <p>No words in this group.</p>
-        {% endif %}
-    </form>
-</body>
+{% block strona %}
+<form method="post" action="{% url 'quiz_check' %}">
+    {% csrf_token %}
+    <input type="hidden" name="group" value="{{ selected_group.id }}">
+    <input type="hidden" name="word_index" value="0">
+    <input type="hidden" name="correct_answers" value="0">
+    {% if words_in_group %}
+    <p>Translate the word: <strong>{{ words_in_group.0.word }}</strong></p>
+    <input type="text" name="user_translation" required>
+    <button type="submit">Check Answer</button>
+    {% else %}
+    <p>No words in this group.</p>
+    {% endif %}
+</form>
 
-</html>
+<a href="{% url 'add_word' %}"><button type="submit">Main Page</button></a>
+
+{% endblock %}
