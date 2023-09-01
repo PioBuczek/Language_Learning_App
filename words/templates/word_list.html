@@ -30,27 +30,33 @@
         <input type="submit" value="Quiz">
     </form>
 </div>
-
 <ul>
     {% for word in words %}
     <li class="word-entry">
-        <div class="word-number">{{ forloop.counter }}.</div>
-        <div>{{ word.word }} - {{ word.translation }}</div>
-        <div>Group: {{ word.group.name }}</div>
+        <div class="word-number">{{ forloop.counter }}.
+            {{ word.word }} - {{ word.translation }}
+            <br>Group: {{ word.group.name }}
+        </div>
         <div class="actions">
             <form action="{% url 'edit_word' word.id %}" class="post">
                 {% csrf_token %}
-                <button type="submit" class="edit-button">Edit</button>
+                <button type="submit" class="edit-button" style="float: left;">Edit</button>
             </form>
             <form action="{% url 'delete_word' word.id %}" method="post" class="post">
                 {% csrf_token %}
-                <button type="submit" class="delete-button">Delete</button>
+                <button type="submit" class="delete-button" style="float: left;">Delete</button>
             </form>
+            <div style="clear: both;"></div>
         </div>
     </li>
     {% endfor %}
 </ul>
-<a href="{% url 'add_word' %}"><button type="submit">Main Page</button></a>
+
+
+
+
+<a href="{% url 'add_word' %}" class="main-page-button"><button type="submit">Main Page</button></a>
+
 
 
 {% endblock %}

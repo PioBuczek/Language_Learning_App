@@ -15,8 +15,6 @@
 <p>Group added successfully</p>
 {% endif %}
 
-<form action="{% url 'add_word' %}" method="get">
-    <input type="submit" value="Main Page">
-</form>
+<a href="{% url 'add_word' %}" class="main-page-button"><button type="submit">Main Page</button></a>
 
 {% endblock %}

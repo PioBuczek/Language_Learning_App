@@ -1,0 +1,63 @@
+body {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+.shorter-table {
+    max-height: 100px;
+    overflow-y: scroll;
+}
+
+h3 {
+    text-align: center;
+    color: white;
+}
+
+h4 {
+    text-align: center;
+    color: rgb(240, 224, 9);
+}
+
+@media (max-width: 768px) {}
+
+.main-page-button {
+    position: absolute;
+    /* Ustawiamy absolutne pozycjonowanie */
+    top: 10px;
+    /* Odległość od górnej krawędzi w pikselach */
+    right: 10px;
+    /* Odległość od prawej krawędzi w pikselach */
+    z-index: 1;
+    /* Ustalamy z-index, aby przycisk był na wierzchu innych elementów */
+}
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+a,
+select,
+textarea {
+    color: white;
+}
+
+select {
+    color: black;
+}
