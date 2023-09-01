@@ -3,7 +3,7 @@
 
 ### A few words about project:
 
-The "Language Learning App" project is a web application that enables users to learn new words and phrases in various languages. The app allows users to create word lists, categorize them by groups, and take quizzes to test their language skills. This project is built using the Django framework and utilizes a database to store words and groups. The app also provides a user-friendly interface for adding new words and categories. It is a valuable tool for individuals who are learning a new language or looking to expand their vocabulary in a foreign language.
+The "Language Learning App" project is a web application that enables users to learn new words and phrases in various languages. The app allows users to create word lists, categorize them by groups, and take quizzes to test their language skills. This project is built using the Django framework and utilizes a database to store words and groups. The app also provides a user-friendly interface for adding new words and categories. It is a valuable tool for individuals who are learning a new language or looking to expand their vocabulary in a foreign language. The application will continue to be developed.
 
 
 ### How start this application ?
