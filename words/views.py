@@ -94,6 +94,10 @@ class QuizView(View):
 
     def get(self, request):
         groups = WordGroup.objects.all()
+
+        if not groups:
+            return redirect("add_group")
+
         return render(request, self.template, {"groups": groups})
 
 
@@ -105,7 +109,16 @@ class QuizStartView(View):
         selected_group = WordGroup.objects.get(id=group_id)
         words_in_group = Word.objects.filter(group=selected_group)
 
-        if words_in_group:
+        if not words_in_group:
+            return render(
+                request,
+                self.template,
+                {
+                    "selected_group": selected_group,
+                    "words_in_group": False,
+                },
+            )
+        elif words_in_group:
             return render(
                 request,
                 self.template,

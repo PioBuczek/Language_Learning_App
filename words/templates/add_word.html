@@ -3,28 +3,36 @@
 {% block tytul %} Add Word {% endblock %}
 
 {% block strona %}
+<div class="page-container">
 
-<form method="post">
-    {% csrf_token %}
-    <label for="word">Word:</label>
-    <input type="text" name="word" required><br>
-    <label for="translation">Translation:</label>
-    <input type="text" name="translation" required><br>
-    <label for="group">Group:</label>
-    <select name="group">
-        <option value="" selected>None</option>
-        {% for group in groups %}
-        <option value="{{ group.id }}">{{ group.name }}</option>
-        {% endfor %}
-    </select><br>
-    <input type="submit" value="Add Word">
-</form>
+    <div style="display: flex;">
+        <form action="{% url 'word_list' %}" method="get">
+            <button type="submit" class="word-list-button" style="margin-left: 35px;">List Words</button>
+        </form>
+        <form action="{% url 'add_group' %}" method="get">
+            <button type="submit" class="add-new-group-button">Add New Group</button>
+        </form>
+    </div>
 
-<form action="{% url 'word_list' %}" method="get">
-    <input type="submit" value="List words">
-</form>
+    <hr>
 
-<form action="{% url 'add_group' %}" method="get">
-    <input type="submit" value="Add New Group">
-</form>
+    <div class="button-group">
+        <form method="post">
+            {% csrf_token %}
+            <label for="word" style="margin-left: -15px;">Word:</label>
+            <input type="text" name="word" required><br>
+            <label for="translation" style="margin-left: -51px;">Translation:</label>
+            <input type="text" name="translation" required><br>
+            <label for="group" style="margin-left: -50px;">Group:</label>
+            <select name="group">
+                <option value="" selected>None</option>
+                {% for group in groups %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="submit" value="Add Word" style="margin-left: 5px;">
+        </form>
+    </div>
+</div>
+
 {% endblock %}

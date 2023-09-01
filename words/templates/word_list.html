@@ -4,12 +4,18 @@
 
 {% block strona %}
 
-<div class="sorting-buttons">
+
+
+<div style="display: flex;">
+    <form action="{% url 'quiz' %}" method="get">
+        <button type="submit" class="quiz">Quiz</button>
+    </form>
     <form action="{% url 'word_list' %}?sort=word" method="get">
         <input type="hidden" name="sort" value="word">
         <button type="submit" class="sort-by-word">Sort by Word</button>
     </form>
 </div>
+<hr>
 
 
 <div class="filter-by-category">
@@ -24,12 +30,9 @@
         <button type="submit">Apply Filter</button>
     </form>
 </div>
+<hr>
 
-<div class="quiz">
-    <form action="{% url 'quiz' %}" method="get">
-        <input type="submit" value="Quiz">
-    </form>
-</div>
+
 <ul>
     {% for word in words %}
     <li class="word-entry">
@@ -49,11 +52,9 @@
             <div style="clear: both;"></div>
         </div>
     </li>
+    <hr>
     {% endfor %}
 </ul>
-
-
-
 
 <a href="{% url 'add_word' %}" class="main-page-button"><button type="submit">Main Page</button></a>
 

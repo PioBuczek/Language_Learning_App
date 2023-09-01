@@ -32,14 +32,28 @@ h4 {
 
 .main-page-button {
     position: absolute;
-    /* Ustawiamy absolutne pozycjonowanie */
     top: 10px;
-    /* Odległość od górnej krawędzi w pikselach */
     right: 10px;
-    /* Odległość od prawej krawędzi w pikselach */
     z-index: 1;
-    /* Ustalamy z-index, aby przycisk był na wierzchu innych elementów */
 }
+
+.word-list-button,
+.add-new-group-button {
+    display: inline-block;
+    margin-right: 10px;
+
+}
+
+.button-group {
+    text-align: center;
+
+}
+
+.page-container {
+    margin-left: 20px;
+
+}
+
 
 body,
 p,
