@@ -1,3 +1,4 @@
+![fCSgPE4](https://github.com/PioBuczek/Language_Learning_App/assets/137912290/1959d677-a125-4252-8a52-45d39c2c20ae)
 
 
 ### A few words about project:
