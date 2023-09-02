@@ -8,7 +8,7 @@ The "Language Learning App" project is a web application that enables users to l
 
 ### How start this application ?
 
-Before we start, you need to create a database(This project is used PostgreSQL version 15). You need to know, that this project was tested in Postgres. 
+Before we start, you need to create a database(This project is used PostgreSQL version 15). You need to know, that this project was tested in Postgres, but if you want to use a different database you need to configure settings accordingly.
 
 Firstly, you need to clone my repo to my GitHub, and you need to use commande: 
 <div class="termy">
@@ -22,38 +22,68 @@ Then you need to go into a higher file, you need the command:
 <div class="termy">
 
 ```console
-cd PasswordValidator
+cd .\Language_Learning_App\
 ```
+</div> 
 
-You need to create Environment Variables. You can set up environment variables in your system by following these steps:
-
-1. Open "Control Panel" and search for "System Properties."
-2. Click on "Environment Variables."
-3. In the "System Variables" section, click "New" to add a new variable.
-4. Add the variable name (e.g., pv_dbname) and its corresponding value (e.g., my_database_name).
-5. Repeat the above step for all the environment variables listed above.
-
-If you don't want set up environment variables, you can create a .env file in the root directory of the project and add the environment variables there in the following format:
+Second, you need to change this settings. In the tree, click on "settings" and find DATABASE, and change this data:
 
 <div class="termy">
 
 ```console
-pv_dbname=my_database_name
-pv_host=my_host
-pv_user=my_username
-pv_password=my_password
-pv_port=my_port
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "{{NAME}}",
+        "USER": "{{USER}}",
+        "PASSWORD": "{{PASSWORD}}",
+        "HOST": "{{HOST}}",
+        "PORT": "{{PORT}}",
+    },
+}
 
 ```
 </div> 
 
-
 Next, you need to create of virtual environments (venv). In the terminal, write the command that will create your venv and install library which are necessery:
-
+<div class="termy">
 
 ```console
 python -m venv YourVenv
 ./YourVenv/Scripts/activate.ps1
 pip install -r requirements.txt  
-python main.py
 ```
+</div> 
+
+If after this command you will get error, you need to open Windows PowerShell and you need to write command: 
+
+<div class="termy">
+
+```console
+Set-ExecutionPolicy RemoteSigned 
+```
+</div> 
+
+
+### Run it
+You need to generate migration files for the models defined in application. The migration files contain the changes to the database schema to be applied.
+
+
+<div class="termy">
+
+```console
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+</div>
+
+
+The development server will start,at
+<div class="termy">
+
+```console
+http://localhost:8000/
+```
+</div>
+  in browser.
